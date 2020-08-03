@@ -1,20 +1,19 @@
 <template>
   <div id="app">
-    <h1>
-      你好 vue
-    </h1>
-    <p v-if='show' style='width:1080px;margin:0 auto'>
-      <Banner :banners="banners"/>
-    </p>
-    <button @click="show=!show">切换</button>
+    <div v-if='show' style='width:1080px;margin:0 auto'>
+      <!-- <Banner :banners="banners"/> -->
+      <Channels />
+    </div>
+    <!-- <button @click="show=!show">切换</button> -->
   </div>
 </template>
 
 <script>
-import Banner from './components/Banner'
+// import Banner from './components/Banner';
+import Channels from './components/news/Channels';
 export default {
   components:{
-    Banner
+    Channels
   },
   data(){
     return {
@@ -38,4 +37,6 @@ export default {
 }
 </script>
 
+<style>
 
+</style>
