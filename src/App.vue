@@ -1,15 +1,12 @@
 <template>
   <div id="app">
     <div v-if='show' style='width:1080px;margin:0 auto'>
-      <!-- <Banner :banners="banners"/> -->
       <Channels />
     </div>
-    <!-- <button @click="show=!show">切换</button> -->
   </div>
 </template>
 
 <script>
-// import Banner from './components/Banner';
 import Channels from './components/news/Channels';
 export default {
   components:{

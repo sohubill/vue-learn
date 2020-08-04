@@ -1,71 +1,44 @@
 <template>
-  <div class="news-types">
-      <div class="item">
-          <spawn class="name">Lorem.</spawn>
+  <div class="news-types" v-if="channels.length>0">
+      <div class="item" v-for="item in showChannels" 
+      :key="item.channelId" 
+      :class="{
+            active:item.channelId===chooseId
+            }">
+          <span class="name">{{item.name}}</span>
       </div>
-      <div class="item">
-          <spawn class="name">Perspiciatis!</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Quisquam!</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Vero!</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Iusto?</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Vero.</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Similique?</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Debitis.</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Perspiciatis!</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Debitis?</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Aliquid.</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Repellendus.</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Alias?</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Magnam.</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Sequi!</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Repudiandae?</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Praesentium?</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Dolorum?</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Odit!</spawn>
-      </div>
-      <div class="item">
-          <spawn class="name">Ducimus.</spawn>
-      </div>
-      <a href="">收起</a>
+      <a href="" @click.prevent="isCollapse=!isCollapse">{{isCollapse?"展开":"收起"}}</a>
   </div>
 </template>
 
 <script>
+import {getNewsChannels} from '@/services/newsService'
+
 export default {
+    data(){
+        return{
+            channels:[],
+            isCollapse:true,
+            chooseId:null
+        }
+    },
+    async created(){
+        var resp=await getNewsChannels();
+        console.log(resp)
+        this.channels=resp;
+        this.chooseId=this.channels[0].channelId;
+    },
+    computed:{
+        //需要显示的频道
+        showChannels(){
+            if(this.isCollapse){
+                var res= this.channels.slice(0,8);
+                return res
+            }else{
+                return this.channels;
+            }
+        }
+    }
 
 }
 </script>
@@ -100,5 +73,8 @@ export default {
     margin-bottom: 20px;
     color: #409eff;
 
+}
+.name{
+    align-items: center;
 }
 </style>
