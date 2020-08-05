@@ -30,10 +30,12 @@ export async function getNews(channelId,page=1,limit=20){
             channelId,
             page,
             maxResult:limit,
-            // needAllList:false
+            needAllList:false,
+            needContent:1
         }
     });
-    return resp.data.showapi_res_body.agebean;
+    // console.log(resp);
+    return resp.data.showapi_res_body.pagebean;
 }
 // getNewsChannels();
 // getNews("5572a109b3cdc86cf39001e1");

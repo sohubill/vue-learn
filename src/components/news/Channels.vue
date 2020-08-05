@@ -4,7 +4,9 @@
       :key="item.channelId" 
       :class="{
             active:item.channelId===chooseId
-            }">
+            }"
+            @click="switchTo(item.channelId)"
+            >
           <span class="name">{{item.name}}</span>
       </div>
       <a href="" @click.prevent="isCollapse=!isCollapse">{{isCollapse?"展开":"收起"}}</a>
@@ -24,9 +26,8 @@ export default {
     },
     async created(){
         var resp=await getNewsChannels();
-        console.log(resp)
         this.channels=resp;
-        this.chooseId=this.channels[0].channelId;
+        this.switchTo(this.channels[0].channelId);
     },
     computed:{
         //需要显示的频道
@@ -37,6 +38,12 @@ export default {
             }else{
                 return this.channels;
             }
+        }
+    },
+    methods:{
+        switchTo(id){
+            this.chooseId=id;
+            this.$emit("change",this.chooseId);
         }
     }
 
